@@ -6,6 +6,7 @@ import racing.generator.FalseNumberGenerator;
 import racing.generator.TrueNumberGenerator;
 
 import java.util.Arrays;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -41,5 +42,15 @@ public class CarListTest {
     @Test
     void notExistCarName() {
         assertThat(carList.findByName("no_name")).isNull();
+    }
+
+    @Test
+    void getWinner() {
+        carList.proceed();
+
+        List<Car> winner = carList.getWinner();
+
+        assertThat(winner.size()).isEqualTo(1);
+        assertThat(winner.get(0).getCarName()).isEqualTo("car1");
     }
 }

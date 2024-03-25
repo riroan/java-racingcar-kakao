@@ -1,5 +1,6 @@
 package racing.domain;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 
@@ -27,5 +28,24 @@ public class CarList {
 
     public Car findByName(String name) {
         return this.carHashMap.get(name);
+    }
+
+    public List<Car> getCarList() {
+        return new ArrayList<>(this.carHashMap.values());
+    }
+
+    public List<Car> getWinner() {
+        int maxPosition = 0;
+        for (Car car : this.carHashMap.values()) {
+            maxPosition = Math.max(maxPosition, car.getPosition());
+        }
+
+        List<Car> winner = new ArrayList<>();
+        for (Car car : this.carHashMap.values()) {
+            if (car.getPosition() == maxPosition) {
+                winner.add(car);
+            }
+        }
+        return winner;
     }
 }
