@@ -3,10 +3,8 @@ package racing.domain;
 import racing.generator.NumberGenerator;
 import racing.generator.RandomNumberGenerator;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedHashMap;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class CarList {
     LinkedHashMap<String, Car> carHashMap;
@@ -38,18 +36,20 @@ public class CarList {
         return new ArrayList<>(this.carHashMap.values());
     }
 
-    public List<Car> getWinner() {
-        int maxPosition = 0;
-        for (Car car : this.carHashMap.values()) {
-            maxPosition = Math.max(maxPosition, car.getPosition());
-        }
+    private int getMaxPosition(List<Car> cars) {
+        return cars.stream()
+                .mapToInt(Car::getPosition)
+                .max()
+                .orElse(0);
+    }
 
-        List<Car> winner = new ArrayList<>();
-        for (Car car : this.carHashMap.values()) {
-            if (car.getPosition() == maxPosition) {
-                winner.add(car);
-            }
-        }
-        return winner;
+    public List<Car> getWinner() {
+        List<Car> cars = getCarList();
+        final int maxPosition = getMaxPosition(cars);
+
+        return cars
+                .stream()
+                .filter(car -> car.getPosition() == maxPosition)
+                .collect(Collectors.toList());
     }
 }
