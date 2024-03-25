@@ -49,9 +49,16 @@ public class CarView {
             System.out.println("경주할 자동차 이름을 입력하세요(이름은 쉼표(,)를 기준으로 구분).");
             inputNames = scanner.nextLine();
             nameValidated = carNameValidator.validate(inputNames);
+            printNameError(nameValidated);
         } while (!nameValidated);
 
         return inputNames;
+    }
+
+    private void printNameError(boolean nameValidated) {
+        if (!nameValidated) {
+            System.out.println("[Error] 잘못된 이름 형식입니다. 다시 입력해주세요.");
+        }
     }
 
     public String getTryCount() {
@@ -63,8 +70,15 @@ public class CarView {
             System.out.println("시도할 회수는 몇회인가요?");
             inputCount = scanner.nextLine();
             tryCountValidated = tryCountValidator.validate(inputCount);
+            printTryCountError(tryCountValidated);
         } while(!tryCountValidated);
 
         return inputCount;
+    }
+
+    private void printTryCountError(boolean tryCountValidated) {
+        if (!tryCountValidated) {
+            System.out.println("[Error] 잘못된 횟수 입니다. 다시 입력해주세요.");
+        }
     }
 }
