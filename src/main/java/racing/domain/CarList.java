@@ -1,6 +1,10 @@
 package racing.domain;
 
+import racing.generator.NumberGenerator;
+import racing.generator.RandomNumberGenerator;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 
