@@ -4,6 +4,7 @@ import racing.domain.Car;
 import racing.domain.CarList;
 import racing.validator.CarNameValidator;
 import racing.validator.TryCountValidator;
+import racing.validator.Validator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +12,10 @@ import java.util.Scanner;
 
 public class CarView {
     private final Scanner scanner;
+    private final String GET_CAR_NAME_MESSAGE = "경주할 자동차 이름을 입력하세요(이름은 쉼표(,)를 기준으로 구분).";
+    private final String GET_COUNT_MESSAGE = "시도할 회수는 몇회인가요?";
+    private final String NAME_ERROR_MESSAGE = "[Error] 잘못된 이름 형식입니다. 다시 입력해주세요.";
+    private final String COUNT_ERROR_MESSAGE = "[Error] 잘못된 횟수 입니다. 다시 입력해주세요.";
 
     public CarView() {
         scanner = new Scanner(System.in);
@@ -20,13 +25,12 @@ public class CarView {
         for (Car car : carList.getCarList()) {
             printCar(car);
         }
+        System.out.println();
     }
 
     private void printCar(Car car) {
-        String status = car.getCarName() + " : ";
-        for (int i = 0; i < car.getPosition(); i++) {
-            status += "-";
-        }
+        StringBuilder status = new StringBuilder(car.getCarName() + " : ");
+        status.append("-".repeat(car.getPosition()));
 
         System.out.println(status);
     }
@@ -42,43 +46,37 @@ public class CarView {
 
     public String getCarNames() {
         CarNameValidator carNameValidator = new CarNameValidator();
-        boolean nameValidated;
-        String inputNames;
-
-        do {
-            System.out.println("경주할 자동차 이름을 입력하세요(이름은 쉼표(,)를 기준으로 구분).");
-            inputNames = scanner.nextLine();
-            nameValidated = carNameValidator.validate(inputNames);
-            printNameError(nameValidated);
-        } while (!nameValidated);
-
-        return inputNames;
+        return getUserInput(carNameValidator, GET_CAR_NAME_MESSAGE, NAME_ERROR_MESSAGE);
     }
 
-    private void printNameError(boolean nameValidated) {
-        if (!nameValidated) {
-            System.out.println("[Error] 잘못된 이름 형식입니다. 다시 입력해주세요.");
-        }
-    }
-
-    public String getTryCount() {
+    public Integer getTryCount() {
         TryCountValidator tryCountValidator = new TryCountValidator();
-        boolean tryCountValidated;
-        String inputCount;
+        String userInput = getUserInput(tryCountValidator, GET_COUNT_MESSAGE, COUNT_ERROR_MESSAGE);
 
-        do {
-            System.out.println("시도할 회수는 몇회인가요?");
-            inputCount = scanner.nextLine();
-            tryCountValidated = tryCountValidator.validate(inputCount);
-            printTryCountError(tryCountValidated);
-        } while(!tryCountValidated);
-
-        return inputCount;
+        return Integer.parseInt(userInput);
     }
 
-    private void printTryCountError(boolean tryCountValidated) {
-        if (!tryCountValidated) {
-            System.out.println("[Error] 잘못된 횟수 입니다. 다시 입력해주세요.");
+    private String getUserInput(Validator validator, String message, String errorMessage) {
+        boolean validated;
+        String input;
+
+        do {
+            System.out.println(message);
+            input = scanner.nextLine();
+            validated = validator.validate(input);
+            printError(validated, errorMessage);
+        } while(!validated);
+
+        return input;
+    }
+
+    private void printError(boolean validated, String errorMessage) {
+        if (!validated) {
+            System.out.println(errorMessage);
         }
+    }
+
+    public void printResultDescription() {
+        System.out.println("\n실행결과");
     }
 }

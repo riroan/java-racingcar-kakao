@@ -2,37 +2,41 @@ package racing.controller;
 
 import racing.domain.Car;
 import racing.domain.CarList;
-import racing.generator.FalseNumberGenerator;
 import racing.generator.RandomNumberGenerator;
-import racing.generator.TrueNumberGenerator;
 import racing.view.CarView;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class CarController {
-    public void run() {
-        CarView carView = new CarView();
+    private final CarView carView;
 
+    public CarController() {
+        carView = new CarView();
+    }
+
+    public void run() {
         String carNames = carView.getCarNames();
         CarList carList = new CarList(createCarList(carNames));
 
-        String tryCount = carView.getTryCount();
-        int turn = Integer.parseInt(tryCount);
+        int turn = carView.getTryCount();
 
-        System.out.println("\n실행결과");
+        carView.printResultDescription();
         for (int i = 0; i < turn; i++) {
-            carList.proceed();
-            carView.printCarList(carList);
-            System.out.println();
+            runOneTurn(carList);
         }
 
         carView.printWinner(carList);
     }
 
+    private void runOneTurn(CarList carList) {
+        carList.proceed();
+        carView.printCarList(carList);
+
+    }
+
     private List<Car> createCarList(String carNames) {
-        List<String> carNamesList = Arrays.asList(carNames.split(","));
+        String[] carNamesList = carNames.split(",");
         List<Car> carList = new ArrayList<>();
         RandomNumberGenerator randomNumberGenerator = new RandomNumberGenerator();
         for (String carName : carNamesList) {

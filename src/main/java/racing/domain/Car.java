@@ -6,6 +6,7 @@ public class Car {
     private final String carName;
     private final NumberGenerator numberGenerator;
     private int position;
+    private final int THRESHOLD = 3;
 
     public Car(String carName, NumberGenerator numberGenerator) {
         this.carName = carName;
@@ -29,6 +30,6 @@ public class Car {
     }
 
     private boolean canGo(int number) {
-        return (number > 3);
+        return (number > THRESHOLD);
     }
 }

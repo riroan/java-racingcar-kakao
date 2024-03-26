@@ -7,23 +7,20 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class CarList {
-    LinkedHashMap<String, Car> carHashMap;
+    Map<String, Car> carHashMap;
 
     public CarList(List<Car> carList) {
         this.carHashMap = createCarHashMap(carList);
     }
 
-    private LinkedHashMap<String, Car> createCarHashMap(List<Car> carList) {
-        LinkedHashMap<String, Car> tmpCarHashMap = new LinkedHashMap<>();
-        for (Car car : carList) {
-            tmpCarHashMap.put(car.getCarName(), car);
-        }
-
-        return tmpCarHashMap;
+    private Map<String, Car> createCarHashMap(List<Car> carList) {
+        return carList
+                .stream()
+                .collect(Collectors.toMap(Car::getCarName, car->car, (x, y) -> y, LinkedHashMap::new));
     }
 
     public void proceed() {
-        for (Car car : this.carHashMap.values()) {
+        for (Car car : getCarList()) {
             car.proceed();
         }
     }
