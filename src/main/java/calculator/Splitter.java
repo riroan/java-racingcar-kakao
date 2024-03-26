@@ -7,16 +7,10 @@ import java.util.List;
 import java.util.Set;
 
 public class Splitter {
-    private final Set<Character> delimiterSet;
+    private Delimiter delimiter;
 
-    Splitter() {
-        delimiterSet = new HashSet<>();
-        delimiterSet.add(',');
-        delimiterSet.add(';');
-    }
-
-    public void add(char delimiter) {
-        delimiterSet.add(delimiter);
+    Splitter(Delimiter delimiter) {
+        this.delimiter = delimiter;
     }
 
     public List<Integer> split(String expression) {
@@ -39,7 +33,7 @@ public class Splitter {
     }
 
     private boolean isDigit(char token) {
-        if (delimiterSet.contains(token)) {
+        if (delimiter.contains(token)) {
             return false;
         }
 

@@ -1,14 +1,23 @@
 package calculator;
 
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.*;
 
 public class SplitterTest {
+    Delimiter delimiter;
+    Splitter splitter;
+
+    @BeforeEach
+    void setUp() {
+        this.delimiter = new Delimiter();
+        this.splitter = new Splitter(delimiter);
+    }
+
     @Test
     void split() {
-        Splitter splitter = new Splitter();
         String expression = "1,2;3";
 
         List<Integer> numberList = splitter.split(expression);
@@ -21,8 +30,7 @@ public class SplitterTest {
 
     @Test
     void customSplit() {
-        Splitter splitter = new Splitter();
-        splitter.add('?');
+        delimiter.add('?');
 
         String expression = "1,2;3?4";
 
