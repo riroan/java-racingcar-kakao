@@ -10,24 +10,27 @@ import java.util.*;
 
 public class CalculatorController {
     private Calculator calculator;
+    private Validator validator;
+    private Splitter splitter;
     private CalculatorView calculatorView;
 
     public CalculatorController() {
         calculator = new Calculator();
+        validator = new Validator();
+        splitter = new Splitter();
         calculatorView = new CalculatorView();
     }
 
     public void start() {
         Delimiter delimiter = new Delimiter();
-        Validator validator = new Validator(delimiter);
-        Splitter splitter = new Splitter(delimiter);
 
         String expression = calculatorView.getExpression();
 
         expression = delimiter.customExpression(expression);
-        validator.validate(expression);
+        validator.validate(expression, delimiter);
 
-        List<Integer> numberList = splitter.split(expression);
+        List<Integer> numberList = splitter.split(expression, delimiter);
+
         int result = calculator.calculate(numberList);
 
         calculatorView.printResult(result);

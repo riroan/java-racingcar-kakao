@@ -13,14 +13,14 @@ public class SplitterTest {
     @BeforeEach
     void setUp() {
         this.delimiter = new Delimiter();
-        this.splitter = new Splitter(delimiter);
+        this.splitter = new Splitter();
     }
 
     @Test
     void split() {
         String expression = "1,2;3";
 
-        List<Integer> numberList = splitter.split(expression);
+        List<Integer> numberList = splitter.split(expression, delimiter);
 
         Assertions.assertThat(numberList.size()).isEqualTo(3);
         Assertions.assertThat(numberList.get(0)).isEqualTo(1);
@@ -34,7 +34,7 @@ public class SplitterTest {
 
         String expression = "1,2;3?4";
 
-        List<Integer> numberList = splitter.split(expression);
+        List<Integer> numberList = splitter.split(expression, delimiter);
 
         Assertions.assertThat(numberList.size()).isEqualTo(4);
         Assertions.assertThat(numberList.get(0)).isEqualTo(1);
