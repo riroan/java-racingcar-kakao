@@ -19,7 +19,7 @@ public class ValidatorTest {
     void validateSuccess() {
         String expression = "1,2;3";
 
-        assertThat(validator.validate(expression)).isTrue();
+        validator.validate(expression);
     }
 
     @Test
@@ -32,7 +32,17 @@ public class ValidatorTest {
 
     @Test
     void validateCustomDelimiter() {
-        String expression = "//?\n1,2;3?4";
-        assertThat(validator.validate(expression)).isTrue();
+        String expression = "//?\\n1,2;3?4";
+        expression = delimiter.customExpression(expression);
+        validator.validate(expression);
+    }
+    
+    @Test
+    void test() {
+        String expression = "1,2;3;4";
+        String[] arr = expression.split("[,;]");
+        for(String i : arr){
+            System.out.println("i = " + i);
+        }
     }
 }

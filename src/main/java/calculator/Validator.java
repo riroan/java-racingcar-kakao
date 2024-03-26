@@ -1,42 +1,31 @@
 package calculator;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 public class Validator {
     private Delimiter delimiter;
 
-    Validator(Delimiter delimiter) {
+    public Validator(Delimiter delimiter) {
         this.delimiter = delimiter;
     }
 
-    public boolean validate(String expression) {
-        expression = checkCustomDelimiter(expression);
-
-        for (char token : expression.toCharArray()) {
-            if (isInvalidToken(token)) {
-                throw new RuntimeException();
-            }
+    public void validate(String expression) {
+        for (String token : expression.split("")) {
+            checkValidToken(token);
         }
-        return true;
     }
 
-    private boolean isDigit(char token) {
-        return '0' <= token && token <= '9';
+    void checkValidToken(String token){
+        if (isInvalidToken(token)) {
+            throw new RuntimeException();
+        }
     }
 
-    private boolean isInvalidToken(char token) {
+    private boolean isDigit(String token) {
+        char tokenChar = token.charAt(0);
+
+        return '0' <= tokenChar && tokenChar <= '9';
+    }
+
+    private boolean isInvalidToken(String token) {
         return !(delimiter.contains(token) || isDigit(token));
-    }
-
-    private String checkCustomDelimiter(String expression) {
-        Matcher m = Pattern.compile("//(.)\n(.*)").matcher(expression);
-        if (m.find()) {
-            String customDelimiter = m.group(1);
-            delimiter.add(customDelimiter.charAt(0));
-            return expression.substring(4);
-        }
-
-        return expression;
     }
 }

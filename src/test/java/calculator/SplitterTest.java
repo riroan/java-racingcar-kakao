@@ -30,7 +30,7 @@ public class SplitterTest {
 
     @Test
     void customSplit() {
-        delimiter.add('?');
+        delimiter.add("?");
 
         String expression = "1,2;3?4";
 

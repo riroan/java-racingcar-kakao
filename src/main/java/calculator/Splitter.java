@@ -1,42 +1,20 @@
 package calculator;
 
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class Splitter {
     private Delimiter delimiter;
 
-    Splitter(Delimiter delimiter) {
+    public Splitter(Delimiter delimiter) {
         this.delimiter = delimiter;
     }
 
     public List<Integer> split(String expression) {
-        List<Integer> result = new ArrayList<>();
-        Integer saver = 0;
-        for (char token : expression.toCharArray()) {
-            if (isDigit(token)) {
-                saver = saver * 10 + Character.getNumericValue(token);
-            }
+        String delimiters = delimiter.getDelimiter();
+        List<String> numberList = Arrays.asList(expression.split(delimiters));
 
-            if (!isDigit(token)) {
-                result.add(saver);
-                saver = 0;
-            }
-        }
-
-        result.add(saver);
-
-        return result;
-    }
-
-    private boolean isDigit(char token) {
-        if (delimiter.contains(token)) {
-            return false;
-        }
-
-        return true;
+        return numberList.stream().map(Integer::parseInt).collect(Collectors.toList());
     }
 }
