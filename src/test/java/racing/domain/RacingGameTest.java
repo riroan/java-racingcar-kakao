@@ -58,7 +58,9 @@ public class RacingGameTest {
     void getWinner() {
         racingGame.proceed();
 
-        List<Car> winner = racingGame.getWinner();
+        List<Car> cars = racingGame.getCarList();
+        int maxPosition = racingGame.getMaxPosition(cars);
+        List<Car> winner = racingGame.getWinner(cars, maxPosition);
 
         assertThat(winner.size()).isEqualTo(1);
         assertThat(winner.get(0).getCarName()).isEqualTo("car1");

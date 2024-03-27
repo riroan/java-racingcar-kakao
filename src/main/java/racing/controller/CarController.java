@@ -26,7 +26,11 @@ public class CarController {
             runOneTurn(racingGame);
         }
 
-        carView.printWinner(racingGame);
+        List<Car> cars = racingGame.getCarList();
+        int maxPosition = racingGame.getMaxPosition(cars);
+        List<Car> winners = racingGame.getWinner(cars, maxPosition);
+
+        carView.printWinner(winners);
     }
 
     private void runOneTurn(RacingGame racingGame) {

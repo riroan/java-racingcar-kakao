@@ -30,17 +30,14 @@ public class RacingGame {
         return new ArrayList<>(this.carHashMap.values());
     }
 
-    private int getMaxPosition(List<Car> cars) {
+    public int getMaxPosition(List<Car> cars) {
         return cars.stream()
                 .mapToInt(Car::getPosition)
                 .max()
                 .orElse(0);
     }
 
-    public List<Car> getWinner() {
-        List<Car> cars = getCarList();
-        final int maxPosition = getMaxPosition(cars);
-
+    public List<Car> getWinner(List<Car> cars, int maxPosition) {
         return cars
                 .stream()
                 .filter(car -> car.getPosition() == maxPosition)

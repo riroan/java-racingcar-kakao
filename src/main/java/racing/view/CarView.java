@@ -35,8 +35,7 @@ public class CarView {
         System.out.println(status);
     }
 
-    public void printWinner(RacingGame racingGame) {
-        List<Car> winners = racingGame.getWinner();
+    public void printWinner(List<Car> winners) {
         List<String> winnerNameList = new ArrayList<>();
         for (Car winner : winners) {
             winnerNameList.add(winner.getCarName());

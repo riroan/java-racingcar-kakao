@@ -2,7 +2,6 @@ package calculator.controller;
 
 import calculator.Calculator;
 import calculator.Delimiter;
-import calculator.Splitter;
 import calculator.Validator;
 import calculator.view.CalculatorView;
 
@@ -11,13 +10,11 @@ import java.util.*;
 public class CalculatorController {
     private Calculator calculator;
     private Validator validator;
-    private Splitter splitter;
     private CalculatorView calculatorView;
 
     public CalculatorController() {
         calculator = new Calculator();
         validator = new Validator();
-        splitter = new Splitter();
         calculatorView = new CalculatorView();
     }
 
@@ -29,7 +26,7 @@ public class CalculatorController {
         expression = delimiter.findCustomOperator(expression);
         validator.validate(expression, delimiter);
 
-        List<Integer> numberList = splitter.split(expression, delimiter);
+        List<Integer> numberList = delimiter.split(expression);
 
         int result = calculator.calculate(numberList);
 

@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 public class Delimiter {
     private static final Pattern CUSTOM_OPERATOR_REGEX = Pattern.compile("//(.)\\n*");
@@ -38,5 +39,12 @@ public class Delimiter {
 
     public boolean contains(String token) {
         return delimiterSet.contains(token);
+    }
+
+    public List<Integer> split(String expression) {
+        String delimiters = getDelimiter();
+        List<String> numberList = Arrays.asList(expression.split(delimiters));
+
+        return numberList.stream().map(Integer::parseInt).collect(Collectors.toList());
     }
 }
