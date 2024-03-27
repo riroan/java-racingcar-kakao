@@ -10,14 +10,14 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class CarListTest {
-    CarList carList;
+public class RacingGameTest {
+    RacingGame racingGame;
 
     @BeforeEach
     void setUp() {
         TrueNumberGenerator trueNumberGenerator = new TrueNumberGenerator();
         FalseNumberGenerator falseNumberGenerator = new FalseNumberGenerator();
-        this.carList = new CarList(
+        this.racingGame = new RacingGame(
                 Arrays.asList(
                         new Car("car1", trueNumberGenerator),
                         new Car("car2", falseNumberGenerator)
@@ -28,27 +28,27 @@ public class CarListTest {
 
     @Test
     void multipleCarProceed() {
-        carList.proceed();
+        racingGame.proceed();
 
-        assertThat(carList.findByName("car1").getPosition()).isEqualTo(1);
-        assertThat(carList.findByName("car2").getPosition()).isEqualTo(0);
+        assertThat(racingGame.findByName("car1").getPosition()).isEqualTo(1);
+        assertThat(racingGame.findByName("car2").getPosition()).isEqualTo(0);
     }
 
     @Test
     void existCarName() {
-        assertThat(carList.findByName("car1")).isNotNull();
+        assertThat(racingGame.findByName("car1")).isNotNull();
     }
 
     @Test
     void notExistCarName() {
-        assertThat(carList.findByName("no_name")).isNull();
+        assertThat(racingGame.findByName("no_name")).isNull();
     }
 
     @Test
     void getWinner() {
-        carList.proceed();
+        racingGame.proceed();
 
-        List<Car> winner = carList.getWinner();
+        List<Car> winner = racingGame.getWinner();
 
         assertThat(winner.size()).isEqualTo(1);
         assertThat(winner.get(0).getCarName()).isEqualTo("car1");

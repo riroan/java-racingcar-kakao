@@ -1,7 +1,7 @@
 package racing.controller;
 
 import racing.domain.Car;
-import racing.domain.CarList;
+import racing.domain.RacingGame;
 import racing.generator.RandomNumberGenerator;
 import racing.view.CarView;
 
@@ -17,21 +17,21 @@ public class CarController {
 
     public void run() {
         String carNames = carView.getCarNames();
-        CarList carList = new CarList(createCarList(carNames));
+        RacingGame racingGame = new RacingGame(createCarList(carNames));
 
         int turn = carView.getTryCount();
 
         carView.printResultDescription();
         for (int i = 0; i < turn; i++) {
-            runOneTurn(carList);
+            runOneTurn(racingGame);
         }
 
-        carView.printWinner(carList);
+        carView.printWinner(racingGame);
     }
 
-    private void runOneTurn(CarList carList) {
-        carList.proceed();
-        carView.printCarList(carList);
+    private void runOneTurn(RacingGame racingGame) {
+        racingGame.proceed();
+        carView.printCarList(racingGame);
 
     }
 

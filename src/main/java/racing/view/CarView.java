@@ -1,7 +1,7 @@
 package racing.view;
 
 import racing.domain.Car;
-import racing.domain.CarList;
+import racing.domain.RacingGame;
 import racing.validator.CarNameValidator;
 import racing.validator.TryCountValidator;
 import racing.validator.Validator;
@@ -21,8 +21,8 @@ public class CarView {
         scanner = new Scanner(System.in);
     }
 
-    public void printCarList(CarList carList) {
-        for (Car car : carList.getCarList()) {
+    public void printCarList(RacingGame racingGame) {
+        for (Car car : racingGame.getCarList()) {
             printCar(car);
         }
         System.out.println();
@@ -35,8 +35,8 @@ public class CarView {
         System.out.println(status);
     }
 
-    public void printWinner(CarList carList) {
-        List<Car> winners = carList.getWinner();
+    public void printWinner(RacingGame racingGame) {
+        List<Car> winners = racingGame.getWinner();
         List<String> winnerNameList = new ArrayList<>();
         for (Car winner : winners) {
             winnerNameList.add(winner.getCarName());

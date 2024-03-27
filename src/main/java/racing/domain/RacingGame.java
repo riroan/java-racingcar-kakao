@@ -1,15 +1,12 @@
 package racing.domain;
 
-import racing.generator.NumberGenerator;
-import racing.generator.RandomNumberGenerator;
-
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class CarList {
+public class RacingGame {
     Map<String, Car> carHashMap;
 
-    public CarList(List<Car> carList) {
+    public RacingGame(List<Car> carList) {
         this.carHashMap = createCarHashMap(carList);
     }
 
