@@ -5,8 +5,8 @@ import racing.generator.NumberGenerator;
 public class Car {
     private final String carName;
     private final NumberGenerator numberGenerator;
-    private int position;
     private final int THRESHOLD = 3;
+    private int position;
 
     public Car(String carName, NumberGenerator numberGenerator) {
         this.carName = carName;
@@ -14,11 +14,13 @@ public class Car {
         this.position = 0;
     }
 
-    public void proceed() {
+    public boolean proceed() {
         int number = numberGenerator.generate();
         if (this.canGo(number)) {
             this.position++;
+            return true;
         }
+        return false;
     }
 
     public String getCarName() {
