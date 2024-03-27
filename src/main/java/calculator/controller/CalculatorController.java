@@ -26,7 +26,7 @@ public class CalculatorController {
 
         String expression = calculatorView.getExpression();
 
-        expression = delimiter.customExpression(expression);
+        expression = delimiter.findCustomOperator(expression);
         validator.validate(expression, delimiter);
 
         List<Integer> numberList = splitter.split(expression, delimiter);

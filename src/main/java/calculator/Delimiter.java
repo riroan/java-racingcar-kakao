@@ -21,7 +21,7 @@ public class Delimiter {
         delimiterSet.add(";");
     }
 
-    public String customExpression(String expression) {
+    public String findCustomOperator(String expression) {
         Matcher m = CUSTOM_OPERATOR_REGEX.matcher(expression);
         if (m.find()) {
             String customDelimiter = m.group(1);
@@ -30,10 +30,6 @@ public class Delimiter {
         }
 
         return expression;
-    }
-
-    public void add(String delimiter) {
-        delimiterSet.add(delimiter);
     }
 
     public String getDelimiter() {
