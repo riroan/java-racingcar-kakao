@@ -16,7 +16,8 @@ public class CarController {
     }
 
     public void run() {
-        String carNames = carView.getCarNames();
+        String inputCarNames = carView.getCarNames();
+        String[] carNames = inputCarNames.split(",");
         RacingGame racingGame = new RacingGame(createCarList(carNames));
 
         int turn = carView.getTryCount();
@@ -39,11 +40,10 @@ public class CarController {
 
     }
 
-    private List<Car> createCarList(String carNames) {
-        String[] carNamesList = carNames.split(",");
+    private List<Car> createCarList(String[] carNames) {
         List<Car> carList = new ArrayList<>();
         RandomNumberGenerator randomNumberGenerator = new RandomNumberGenerator();
-        for (String carName : carNamesList) {
+        for (String carName : carNames) {
             Car car = new Car(carName, randomNumberGenerator);
             carList.add(car);
         }
