@@ -1,5 +1,5 @@
 package racing.generator;
 
 public interface NumberGenerator {
-    int generate();
+    public int generate();
 }

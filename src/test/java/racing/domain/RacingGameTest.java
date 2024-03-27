@@ -2,8 +2,8 @@ package racing.domain;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import racing.generator.FalseNumberGenerator;
-import racing.generator.TrueNumberGenerator;
+import racing.generator.NumberGenerator;
+import racing.generator.RandomNumberGenerator;
 
 import java.util.Arrays;
 import java.util.List;
@@ -15,8 +15,18 @@ public class RacingGameTest {
 
     @BeforeEach
     void setUp() {
-        TrueNumberGenerator trueNumberGenerator = new TrueNumberGenerator();
-        FalseNumberGenerator falseNumberGenerator = new FalseNumberGenerator();
+        NumberGenerator trueNumberGenerator = new RandomNumberGenerator() {
+            @Override
+            public int generate() {
+                return 9;
+            }
+        };
+        NumberGenerator falseNumberGenerator = new RandomNumberGenerator() {
+            @Override
+            public int generate() {
+                return 0;
+            }
+        };
         this.racingGame = new RacingGame(
                 Arrays.asList(
                         new Car("car1", trueNumberGenerator),
