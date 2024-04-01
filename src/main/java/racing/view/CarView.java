@@ -21,16 +21,16 @@ public class CarView {
         scanner = new Scanner(System.in);
     }
 
-    public void printCarList(RacingGame racingGame) {
+    public void printCarList(RacingGame racingGame, int time) {
         for (Car car : racingGame.getCarList()) {
-            printCar(car);
+            printCar(car, time);
         }
         System.out.println();
     }
 
-    private void printCar(Car car) {
+    private void printCar(Car car, int time) {
         StringBuilder status = new StringBuilder(car.getCarName() + " : ");
-        status.append("-".repeat(car.getPosition()));
+        status.append("-".repeat(car.getPosition(time)));
 
         System.out.println(status);
     }

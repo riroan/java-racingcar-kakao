@@ -22,9 +22,13 @@ public class CarController {
 
         int turn = carView.getTryCount();
 
-        carView.printResultDescription();
         for (int i = 0; i < turn; i++) {
-            runOneTurn(racingGame);
+            racingGame.proceed();
+        }
+
+        carView.printResultDescription();
+        for (int time = 0; time < turn; time++) {
+            carView.printCarList(racingGame, time);
         }
 
         List<Car> cars = racingGame.getCarList();
@@ -32,12 +36,6 @@ public class CarController {
         List<Car> winners = racingGame.getWinner(cars, maxPosition);
 
         carView.printWinner(winners);
-    }
-
-    private void runOneTurn(RacingGame racingGame) {
-        racingGame.proceed();
-        carView.printCarList(racingGame);
-
     }
 
     private List<Car> createCarList(String[] carNames) {
