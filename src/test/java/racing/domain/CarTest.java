@@ -1,7 +1,6 @@
 package racing.domain;
 
 import org.junit.jupiter.api.Test;
-
 import racing.generator.NumberGenerator;
 import racing.generator.RandomNumberGenerator;
 

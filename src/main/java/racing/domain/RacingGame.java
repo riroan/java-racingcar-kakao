@@ -13,6 +13,10 @@ public class RacingGame {
         this.carHashMap = createCarHashMap(cars);
     }
 
+    public RacingGame(List<Car> cars) {
+        this.carHashMap = createCarHashMap(cars);
+    }
+
     private List<Car> createCarList(String[] carNames) {
         List<Car> carList = new ArrayList<>();
         RandomNumberGenerator randomNumberGenerator = new RandomNumberGenerator();
